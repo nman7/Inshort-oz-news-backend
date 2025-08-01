@@ -10,17 +10,16 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy only requirements first for better caching
-COPY requirements.txt .
+COPY ./backend/requirements.txt .
 
 # Install Python dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Now copy the rest of the code
-COPY . .
+COPY ./backend/ .
 
 # Expose FastAPI port
 EXPOSE 8000
 
 # Start FastAPI backend
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "$PORT"]
