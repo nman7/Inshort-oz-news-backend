@@ -1,0 +1,14 @@
+# docker-compose.yml
+services:
+  backend:
+    build: ./backend
+    container_name: inshort-oz-news-bd
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./backend/data:/data   # Optional: if your backend writes to /data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+  
